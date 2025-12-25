@@ -1,0 +1,90 @@
+{
+  "name": "cpcode",
+  "displayName": "CPCode",
+  "description": "获取选中代码的 GitHub 链接和代码片段，通过弹窗显示结果",
+  "version": "1.0.0",
+  "publisher": "rileyye",
+  "icon": "icon.png",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "cpcode.copyCodeLink",
+        "title": "CPCode: 复制代码链接"
+      },
+      {
+        "command": "cpcode.copyCodeLinkForceRefresh",
+        "title": "CPCode: 复制代码链接 (强制刷新)"
+      },
+      {
+        "command": "cpcode.clearCache",
+        "title": "CPCode: 清除缓存"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "cpcode.copyCodeLink",
+          "when": "editorHasSelection",
+          "group": "9_cutcopypaste"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "cpcode.copyCodeLink",
+        "key": "ctrl+shift+c",
+        "mac": "cmd+shift+c",
+        "when": "editorTextFocus && editorHasSelection"
+      },
+      {
+        "command": "cpcode.clearCache",
+        "key": "ctrl+shift+alt+c",
+        "mac": "cmd+shift+alt+c"
+      }
+    ],
+    "configuration": {
+      "title": "CPCode",
+      "properties": {
+        "cpcode.apiEndpoint": {
+          "type": "string",
+          "default": "",
+          "description": "API 端点地址，用于获取项目的原始 URL"
+        },
+        "cpcode.cacheTimeout": {
+          "type": "number",
+          "default": 600,
+          "minimum": 0,
+          "description": "缓存超时时间（秒），设置为 0 则禁用缓存"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.0",
+    "@typescript-eslint/parser": "^6.13.0",
+    "eslint": "^8.54.0",
+    "typescript": "^5.3.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  }
+}
+

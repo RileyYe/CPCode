@@ -286,17 +286,9 @@ async function copyCodeLink(forceRefresh: boolean = false) {
     }
     finalOutput += '```';
 
-    // 弹窗显示简短信息
-    const copyAction = '复制到剪贴板';
-    const result = await vscode.window.showInformationMessage(
-        `✅ 代码链接已生成: ${filename} L${startLine}-L${endLine}`,
-        copyAction
-    );
-    
-    if (result === copyAction) {
-        await vscode.env.clipboard.writeText(finalOutput);
-        vscode.window.showInformationMessage('已复制到剪贴板！');
-    }
+    // 自动复制到剪贴板
+    await vscode.env.clipboard.writeText(finalOutput);
+    vscode.window.showInformationMessage(`✅ 已复制到剪贴板: ${filename} L${startLine}-L${endLine}`);
 }
 
 export function activate(context: vscode.ExtensionContext) {

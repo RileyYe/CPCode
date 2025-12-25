@@ -2,7 +2,7 @@
   "name": "cpcode",
   "displayName": "CPCode",
   "description": "获取选中代码的 GitHub 链接和代码片段，通过弹窗显示结果",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "rileyye",
   "icon": "icon.png",
   "engines": {

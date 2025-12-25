@@ -299,18 +299,12 @@ async function copyCodeLink(forceRefresh: boolean = false) {
     }
 }
 
-/**
- * 强制刷新并复制代码链接
- */
-async function copyCodeLinkWithForceRefresh() {
-    await copyCodeLink(true);
-}
-
 export function activate(context: vscode.ExtensionContext) {
     console.log('CPCode 插件已激活');
     
     // 注册复制代码链接命令
-    const copyCommand = vscode.commands.registerCommand('cpcode.copyCodeLink', copyCodeLink);
+    // 注意：必须用箭头函数包装，否则 VS Code 传递的参数（如 URI）会被当作 forceRefresh 参数
+    const copyCommand = vscode.commands.registerCommand('cpcode.copyCodeLink', () => copyCodeLink(false));
     context.subscriptions.push(copyCommand);
     
     // 注册清除缓存命令
@@ -321,9 +315,7 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(clearCacheCommand);
     
     // 注册强制刷新并复制链接命令
-    const forceRefreshCommand = vscode.commands.registerCommand('cpcode.copyCodeLinkForceRefresh', async () => {
-        await copyCodeLinkWithForceRefresh();
-    });
+    const forceRefreshCommand = vscode.commands.registerCommand('cpcode.copyCodeLinkForceRefresh', () => copyCodeLink(true));
     context.subscriptions.push(forceRefreshCommand);
 }
 
